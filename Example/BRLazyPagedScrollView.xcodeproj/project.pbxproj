@@ -22,6 +22,7 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		AC58B82D1B06A370004450EA /* BRLazyPagedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC58B82C1B06A370004450EA /* BRLazyPagedViewController.swift */; };
 		C8638696D20A04DAED242BAB /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9159B9BF7EE119BD2CD349F /* libPods-Tests.a */; };
 		E4282460DC2DC05B45D6862B /* libPods-BRLazyPagedScrollView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2215EF56AB69B7C845F16A /* libPods-BRLazyPagedScrollView.a */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		64402784D4851D372490F5BB /* BRLazyPagedScrollView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BRLazyPagedScrollView.podspec; path = ../BRLazyPagedScrollView.podspec; sourceTree = "<group>"; };
+		AC58B82C1B06A370004450EA /* BRLazyPagedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BRLazyPagedViewController.swift; sourceTree = "<group>"; };
 		B1C7485C70EFEDD2900E0D8D /* Pods-BRLazyPagedScrollView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BRLazyPagedScrollView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BRLazyPagedScrollView/Pods-BRLazyPagedScrollView.debug.xcconfig"; sourceTree = "<group>"; };
 		C6524C6F805A0E1BC1C933E2 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		D157ECBF1402C514A1860392 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				6003F5A2195388D20070C39A /* Main_iPad.storyboard */,
 				6003F5A5195388D20070C39A /* BRViewController.h */,
 				6003F5A6195388D20070C39A /* BRViewController.m */,
+				AC58B82C1B06A370004450EA /* BRLazyPagedViewController.swift */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -363,6 +366,7 @@
 			files = (
 				6003F59E195388D20070C39A /* BRAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* BRViewController.m in Sources */,
+				AC58B82D1B06A370004450EA /* BRLazyPagedViewController.swift in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,10 +503,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BRLazyPagedScrollView/BRLazyPagedScrollView-Prefix.pch";
 				INFOPLIST_FILE = "BRLazyPagedScrollView/BRLazyPagedScrollView-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -513,9 +520,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BRLazyPagedScrollView/BRLazyPagedScrollView-Prefix.pch";
 				INFOPLIST_FILE = "BRLazyPagedScrollView/BRLazyPagedScrollView-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

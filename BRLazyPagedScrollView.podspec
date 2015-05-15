@@ -10,18 +10,18 @@
 Pod::Spec.new do |s|
   s.name             = "BRLazyPagedScrollView"
   s.version          = "0.1.0"
-  s.summary          = "A short description of BRLazyPagedScrollView."
+  s.summary          = "Lazily loads view controllers into a scroll view"
   s.description      = <<-DESC
-                       An optional longer description of BRLazyPagedScrollView
+  		       only loads two or three UIViewControllers at a time
 
                        * Markdown format.
                        * Don't worry about the indent, we strip it!
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/BRLazyPagedScrollView"
+  s.homepage         = "https://github.com/BobbyRenTech/BRLazyPagedScrollView"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Bobby Ren" => "bobbyren@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/BRLazyPagedScrollView.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/BobbyRenTech/BRLazyPagedScrollView.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '7.0'
