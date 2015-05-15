@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRLazyPagedScrollViewController.h"
 
-@interface BRViewController : BRLazyPagedViewController
+@interface BRViewController : BRLazyPagedScrollViewController
 
 @end

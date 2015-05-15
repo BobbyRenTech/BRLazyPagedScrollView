@@ -27,6 +27,8 @@
     [scrollView setDirectionalLockEnabled:YES];
     [scrollView setBounces:NO];
     [scrollView setScrollEnabled:YES];
+    
+    [self setupPages];
 }
 
 -(void)setupScrollView {

@@ -34,4 +34,11 @@ typedef enum LazyPagePositionType {
 @property (nonatomic) UIViewController *leftPage;
 @property (nonatomic) UIViewController *rightPage;
 
+-(BOOL)canGoLeft;
+-(BOOL)canGoRight;
+-(void)loadCurrentPage;
+-(void)loadLeftPage;
+-(void)loadRightPage;
+
 @end
+
