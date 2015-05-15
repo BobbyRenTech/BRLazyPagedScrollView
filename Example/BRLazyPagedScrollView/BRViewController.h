@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BRViewController : UIViewController
+@interface BRViewController : BRLazyPagedViewController
 
 @end
