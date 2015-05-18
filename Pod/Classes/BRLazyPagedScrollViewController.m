@@ -39,9 +39,12 @@
     self.pageWidth = pageWidth;
     self.scrollViewWidth = size.width;
     self.scrollViewHeight = size.height;
-    if (self.scrollViewWidth > pageWidth) {
-        border = 20;
+    
+    if (self.pageWidth < self.scrollViewWidth) {
+        self.border = 20;
     }
+    
+    pagingWidth = self.pageWidth + self.border;
     isSetup = true;
 }
 
@@ -56,15 +59,17 @@
 
 -(void)layoutCurrentPage {
     // update content size and content offset if we reached end
-    int content_size_width = self.pageWidth * 3 + border * 2;
+    CGFloat pagediff = (self.scrollViewWidth - self.pageWidth) / 2;
+    int content_size_width = pagediff + self.pageWidth * 3 + self.border * 2 + pagediff;
+    
     if (!self.canGoLeft && !self.canGoRight) {
         content_size_width = self.scrollViewWidth;
     }
     else if (![self canGoLeft]) {
-        content_size_width = self.pageWidth * 2 + border;
+        content_size_width = pagediff + self.pageWidth * 2 + self.border + pagediff;
     }
     else if (![self canGoRight]) {
-        content_size_width = self.pageWidth * 2 + border;
+        content_size_width = pagediff + self.pageWidth * 2 + self.border + pagediff;
     }
     
     // set frames for current week
@@ -105,19 +110,22 @@
 }
 
 -(CGRect)frameInScrollviewForPosition:(LazyPagePosition)pos {
-    int offset_x = 0;
+    CGFloat pagediff = (self.scrollViewWidth - self.pageWidth) / 2;
+    
+    CGFloat offset_x = self.border;
     if (pos == LazyPagePositionLeft)
-        offset_x = 0;
+        offset_x = pagediff;
     else if (pos == LazyPagePositionCenter)
-        offset_x = [self left_offset_x];
+        offset_x = pagediff + self.pageWidth + self.border;
     else if (pos == LazyPagePositionRight)
-        offset_x = [self right_offset_x];
+        offset_x = pagediff + self.pageWidth * 2 + self.border * 2;
     
     CGRect rect = CGRectMake(offset_x, content_offset_y, self.pageWidth, self.scrollViewHeight - content_offset_y);
     return rect;
 }
 
 -(CGFloat)center_offset_x {
+    // content offset for center view
     if (!self.canGoLeft && !self.canGoRight) {
         return 0;
     }
@@ -125,18 +133,11 @@
         return 0;
     }
     else if (![self canGoRight]) {
-        return (self.pageWidth + border) + (self.pageWidth / 2) - (self.scrollViewWidth / 2);
+        return pagingWidth;
     }
     else {
-        return (self.pageWidth + border) + (self.pageWidth / 2) - (self.scrollViewWidth / 2);
+        return pagingWidth;
     }
-}
--(CGFloat)left_offset_x {
-    return self.pageWidth + border;
-}
-
--(CGFloat)right_offset_x {
-    return self.pageWidth * 2 + border * 2;
 }
 
 #pragma mark Movement
@@ -146,6 +147,9 @@
     rightPage = currentPage;
     currentPage = leftPage;
     leftPage = nil;
+    
+    goingLeft = false;
+    goingRight = false;
     
     [self performSelector:@selector(setupPages) withObject:nil afterDelay:LAZY_LOAD_CURRENT_DELAY];
 }
@@ -157,6 +161,9 @@
     currentPage = rightPage;
     rightPage = nil;
     
+    goingLeft = false;
+    goingRight = false;
+
     [self performSelector:@selector(setupPages) withObject:nil afterDelay:LAZY_LOAD_CURRENT_DELAY];
 }
 
@@ -175,7 +182,16 @@
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     // if scrollview stops. can happen if scrollview pops back, or if fling motion happens
-    [self snap];
+//    [self snap];
+    if (scrollView.contentOffset.x < [self center_offset_x] - self.pageWidth/3) {
+        [self pageLeft];
+    }
+    else if (scrollView.contentOffset.x > [self center_offset_x] + self.pageWidth/3) {
+        [self pageRight];
+    }
+    else {
+        [self snap];
+    }
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -189,16 +205,20 @@
     else {
         // todo: if scrollview is scrolling very slowly, go ahead and stop it and snap
         // must prevent didEndDecelerating from being triggered
-        //[self snap];
+        [self snap];
     }
 }
 
 -(void)snap {
     if (scrollView.contentOffset.x < [self center_offset_x] - self.pageWidth/3) {
-        [self pageLeft];
+        [self.scrollView setContentOffset:CGPointMake(0, content_offset_y) animated:true];
+        goingLeft = true;
+//        [self pageLeft];
     }
     else if (scrollView.contentOffset.x > [self center_offset_x] + self.pageWidth/3) {
-        [self pageRight];
+        [self.scrollView setContentOffset:CGPointMake([self center_offset_x] + self.pageWidth, content_offset_y) animated:true];
+        goingRight = true;
+//        [self pageRight];
     }
     else {
         [self.scrollView setContentOffset:CGPointMake([self center_offset_x], content_offset_y) animated:true];

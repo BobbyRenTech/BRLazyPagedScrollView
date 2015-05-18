@@ -19,8 +19,8 @@ typedef enum LazyPagePositionType {
 
 @interface BRLazyPagedScrollViewController : UIViewController <UIScrollViewDelegate>
 {
+    int pagingWidth; // size of page plus border
     int content_offset_y;
-    int border; // space between two pages
     BOOL goingLeft, goingRight;
     
     BOOL isSetup;
@@ -29,8 +29,9 @@ typedef enum LazyPagePositionType {
 @property (nonatomic) IBOutlet UIScrollView *scrollView;
 
 // sizing
-@property (nonatomic) CGFloat pageWidth;
-@property (nonatomic) CGFloat scrollViewWidth;
+@property (nonatomic) CGFloat border; // any separation between pages; cannot exceed difference between page width and scrollview width
+@property (nonatomic) CGFloat pageWidth; // size of the page content - not the paging width
+@property (nonatomic) CGFloat scrollViewWidth; // size of the scrollView
 @property (nonatomic) CGFloat scrollViewHeight;
 
 // content pages
