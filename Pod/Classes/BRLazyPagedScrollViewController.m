@@ -189,15 +189,15 @@
     else {
         // todo: if scrollview is scrolling very slowly, go ahead and stop it and snap
         // must prevent didEndDecelerating from being triggered
-        [self snap];
+        //[self snap];
     }
 }
 
 -(void)snap {
-    if (scrollView.contentOffset.x < [self center_offset_x] + SCROLL_OFFSET_PAST_PAGE) {
+    if (scrollView.contentOffset.x < [self center_offset_x] - self.pageWidth/3) {
         [self pageLeft];
     }
-    else if (scrollView.contentOffset.x > [self center_offset_x] + SCROLL_OFFSET_NEXT_PAGE) {
+    else if (scrollView.contentOffset.x > [self center_offset_x] + self.pageWidth/3) {
         [self pageRight];
     }
     else {
