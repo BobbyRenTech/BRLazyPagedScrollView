@@ -19,21 +19,30 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupScrollView];
+    [scrollView setPagingEnabled:NO];
     
-    [scrollView setPagingEnabled:YES];
-
     // todo: these should not be defaults
     [scrollView setDirectionalLockEnabled:YES];
     [scrollView setBounces:NO];
     [scrollView setScrollEnabled:YES];
-    
-    [self setupPages];
 }
 
--(void)setupScrollView {
+-(void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    if (!isSetup) {
+        [self setupScrollViewWithPageWidth:self.view.frame.size.width size:self.view.frame.size];
+    }
+}
+
+-(void)setupScrollViewWithPageWidth:(CGFloat)pageWidth size:(CGSize)size {
     // default: programmatically creates scrollview. If subclassing with an interface builder scene, can override this func and connect an IBOutlet (like @IBOutlet weak var myScrollView) to self.scrollView
-    self.scrollView = [[UIScrollView alloc] init];
+    self.pageWidth = pageWidth;
+    self.scrollViewWidth = size.width;
+    self.scrollViewHeight = size.height;
+    if (self.scrollViewWidth > pageWidth) {
+        border = 20;
+    }
+    isSetup = true;
 }
 
 #pragma mark Setup
@@ -47,18 +56,15 @@
 
 -(void)layoutCurrentPage {
     // update content size and content offset if we reached end
-    current_offset_x = scrollView.frame.size.width;
-    int content_size_width = scrollView.frame.size.width * 3;
+    int content_size_width = self.pageWidth * 3 + border * 2;
     if (!self.canGoLeft && !self.canGoRight) {
-        current_offset_x = 0;
-        content_size_width = scrollView.frame.size.width;
+        content_size_width = self.scrollViewWidth;
     }
     else if (![self canGoLeft]) {
-        current_offset_x = 0;
-        content_size_width = scrollView.frame.size.width * 2;
+        content_size_width = self.pageWidth * 2 + border;
     }
     else if (![self canGoRight]) {
-        content_size_width = scrollView.frame.size.width * 2;
+        content_size_width = self.pageWidth * 2 + border;
     }
     
     // set frames for current week
@@ -72,8 +78,8 @@
     [currentPage.view removeFromSuperview];
     [scrollView addSubview:currentPage.view];
     
-    [scrollView setContentOffset:CGPointMake(current_offset_x, 0) animated:NO];
-    [scrollView setContentSize:CGSizeMake(content_size_width, scrollView.frame.size.height)];
+    [scrollView setContentOffset:CGPointMake([self center_offset_x], 0) animated:NO];
+    [scrollView setContentSize:CGSizeMake(content_size_width, self.scrollViewHeight)];
 }
 
 -(void)layoutRightPage {
@@ -103,12 +109,34 @@
     if (pos == LazyPagePositionLeft)
         offset_x = 0;
     else if (pos == LazyPagePositionCenter)
-        offset_x = current_offset_x;
+        offset_x = [self left_offset_x];
     else if (pos == LazyPagePositionRight)
-        offset_x = current_offset_x + scrollView.frame.size.width;
+        offset_x = [self right_offset_x];
     
-    CGRect rect = CGRectMake(offset_x, content_offset_y, scrollView.frame.size.width, scrollView.frame.size.height - content_offset_y);
+    CGRect rect = CGRectMake(offset_x, content_offset_y, self.pageWidth, self.scrollViewHeight - content_offset_y);
     return rect;
+}
+
+-(CGFloat)center_offset_x {
+    if (!self.canGoLeft && !self.canGoRight) {
+        return 0;
+    }
+    else if (![self canGoLeft]) {
+        return 0;
+    }
+    else if (![self canGoRight]) {
+        return (self.pageWidth + border) + (self.pageWidth / 2) - (self.scrollViewWidth / 2);
+    }
+    else {
+        return (self.pageWidth + border) + (self.pageWidth / 2) - (self.scrollViewWidth / 2);
+    }
+}
+-(CGFloat)left_offset_x {
+    return self.pageWidth + border;
+}
+
+-(CGFloat)right_offset_x {
+    return self.pageWidth * 2 + border * 2;
 }
 
 #pragma mark Movement
@@ -147,14 +175,34 @@
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     // if scrollview stops. can happen if scrollview pops back, or if fling motion happens
-    if (scrollView.contentOffset.x < current_offset_x + SCROLL_OFFSET_PAST_PAGE)
-        [self pageLeft];
-    else if (scrollView.contentOffset.x > current_offset_x + SCROLL_OFFSET_NEXT_PAGE)
-        [self pageRight];
+    [self snap];
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     // nothing special to do
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (decelerate == NO) {
+        [self snap];
+    }
+    else {
+        // todo: if scrollview is scrolling very slowly, go ahead and stop it and snap
+        // must prevent didEndDecelerating from being triggered
+        [self snap];
+    }
+}
+
+-(void)snap {
+    if (scrollView.contentOffset.x < [self center_offset_x] - self.pageWidth/3) {
+        [self pageLeft];
+    }
+    else if (scrollView.contentOffset.x > [self center_offset_x] + self.pageWidth+3) {
+        [self pageRight];
+    }
+    else {
+        [self.scrollView setContentOffset:CGPointMake([self center_offset_x], content_offset_y) animated:true];
+    }
 }
 
 #pragma mark Implemented by subclasses
@@ -180,13 +228,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
