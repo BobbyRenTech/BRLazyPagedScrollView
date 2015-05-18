@@ -194,10 +194,10 @@
 }
 
 -(void)snap {
-    if (scrollView.contentOffset.x < [self center_offset_x] - self.pageWidth/3) {
+    if (scrollView.contentOffset.x < [self center_offset_x] + SCROLL_OFFSET_PAST_PAGE) {
         [self pageLeft];
     }
-    else if (scrollView.contentOffset.x > [self center_offset_x] + self.pageWidth+3) {
+    else if (scrollView.contentOffset.x > [self center_offset_x] + SCROLL_OFFSET_NEXT_PAGE) {
         [self pageRight];
     }
     else {

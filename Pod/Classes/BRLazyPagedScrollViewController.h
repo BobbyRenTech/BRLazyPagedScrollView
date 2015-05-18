@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define SCROLL_OFFSET_PAST_PAGE -50
+#define SCROLL_OFFSET_NEXT_PAGE 50
 #define LAZY_LOAD_CURRENT_DELAY .01
 #define LAZY_LOAD_DELAY 2
 
