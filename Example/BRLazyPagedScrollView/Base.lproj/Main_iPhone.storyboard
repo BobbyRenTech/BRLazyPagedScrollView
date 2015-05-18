@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Browser View Controller-->
@@ -51,6 +50,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="78" id="1gb-p5-59y"/>
+                                    <constraint firstAttribute="width" constant="125" id="JAt-7c-Tjs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -59,8 +59,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="sxX-W2-vJV" secondAttribute="trailing" constant="81" id="UT2-Vy-XsA"/>
-                            <constraint firstItem="sxX-W2-vJV" firstAttribute="leading" secondItem="MEh-ap-50r" secondAttribute="leadingMargin" constant="82" id="mVK-xM-KTJ"/>
+                            <constraint firstAttribute="centerX" secondItem="sxX-W2-vJV" secondAttribute="centerX" id="gNa-2u-eop"/>
                             <constraint firstItem="sxX-W2-vJV" firstAttribute="top" secondItem="2oo-ak-Hhy" secondAttribute="bottom" id="usc-cR-koi"/>
                         </constraints>
                     </view>
