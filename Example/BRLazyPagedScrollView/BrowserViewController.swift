@@ -18,6 +18,7 @@ class BrowserViewController: BRLazyPagedScrollViewController, UIScrollViewDelega
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationController!.navigationBar.backgroundColor = UIColor.clearColor()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -38,7 +39,7 @@ class BrowserViewController: BRLazyPagedScrollViewController, UIScrollViewDelega
         self.currentPage = controller
         super.loadCurrentPage()
         
-        println("current page \(controller!.currentNumber) offset \(controller!.view.frame.origin.x)")
+        println("current page \(controller!.currentNumber) offset \(controller!.view.frame.origin.x) scroll content \(scrollView.contentOffset.x) \(scrollView.contentOffset.y)")
     }
     
     override func loadLeftPage() {

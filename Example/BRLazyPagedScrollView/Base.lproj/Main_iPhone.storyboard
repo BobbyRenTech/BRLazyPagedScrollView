@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bda-Pc-otI">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Lb5-if-Efr">
+            <objects>
+                <navigationController id="Bda-Pc-otI" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RiW-c0-V1Y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="sbY-gS-7Sn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="izW-sj-huM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-151" y="276"/>
+        </scene>
         <!--Browser View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -14,18 +31,25 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wNN-EZ-5i8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wNN-EZ-5i8">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="JJP-dp-0FM"/>
                                 </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wNN-EZ-5i8" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="6a6-Oj-xfI"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="wNN-EZ-5i8" secondAttribute="bottom" id="F5i-3E-RnH"/>
+                            <constraint firstItem="wNN-EZ-5i8" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="Sjz-rd-0Ye"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wNN-EZ-5i8" secondAttribute="trailing" constant="-16" id="yYO-ET-gvi"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="BWc-sF-Ga1"/>
                     <connections>
                         <outlet property="scrollView" destination="wNN-EZ-5i8" id="ida-wP-zdE"/>
                     </connections>
@@ -56,13 +80,45 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHQ-PX-4x5">
+                                <rect key="frame" x="42" y="28" width="54" height="78"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="CuZ-QH-e95"/>
+                                    <constraint firstAttribute="height" constant="78" id="hAu-zn-YKm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLh-74-j6L">
+                                <rect key="frame" x="16" y="134" width="269" height="138"/>
+                                <string key="text">The constraints at the top affect where the items are aligned. Here, the middle label will be aligned to the top similar to the purple square. </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0lc-Gc-TxL">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.01639625364" blue="0.90186062840000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="3kP-n4-ZOa"/>
+                                    <constraint firstAttribute="width" constant="40" id="ArX-uj-FuZ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="YHQ-PX-4x5" firstAttribute="top" secondItem="2oo-ak-Hhy" secondAttribute="bottom" constant="8" id="81D-it-hHP"/>
+                            <constraint firstItem="sxX-W2-vJV" firstAttribute="leading" secondItem="YHQ-PX-4x5" secondAttribute="trailing" constant="2" id="BbU-Tq-rnD"/>
+                            <constraint firstItem="0lc-Gc-TxL" firstAttribute="top" secondItem="MEh-ap-50r" secondAttribute="top" id="NjQ-Nd-8Gh"/>
+                            <constraint firstItem="0lc-Gc-TxL" firstAttribute="leading" secondItem="MEh-ap-50r" secondAttribute="leading" id="T5D-Wt-QPT"/>
+                            <constraint firstItem="sxX-W2-vJV" firstAttribute="top" secondItem="2oo-ak-Hhy" secondAttribute="bottom" id="cGy-9g-rcb"/>
                             <constraint firstAttribute="centerX" secondItem="sxX-W2-vJV" secondAttribute="centerX" id="gNa-2u-eop"/>
                             <constraint firstItem="sxX-W2-vJV" firstAttribute="top" secondItem="2oo-ak-Hhy" secondAttribute="bottom" id="usc-cR-koi"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="label" destination="sxX-W2-vJV" id="MmI-mR-pvF"/>
                     </connections>

@@ -30,8 +30,10 @@
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     if (!isSetup) {
+        content_offset_y = 0; //self.scrollView.contentOffset.y;
         [self setupScrollViewWithPageWidth:self.view.frame.size.width size:self.view.frame.size];
     }
+    self.scrollView.contentInset = UIEdgeInsetsZero;
 }
 
 -(void)setupScrollViewWithPageWidth:(CGFloat)pageWidth size:(CGSize)size {
