@@ -24,8 +24,8 @@ class BrowserViewController: BRLazyPagedScrollViewController, UIScrollViewDelega
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
-        let width_ratio:CGFloat = 0.8
-        self.setupScrollViewWithPageWidth(self.view.frame.size.width * width_ratio, size: CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 100))
+        let width_ratio:CGFloat = 0.5
+        self.setupScrollViewWithPageWidth(self.view.frame.size.width * width_ratio, size: CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 100), border:150)
         self.setupPages()
     }
 

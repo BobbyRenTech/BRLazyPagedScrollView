@@ -40,7 +40,7 @@ typedef enum LazyPagePositionType {
 @property (nonatomic) UIViewController *rightPage;
 
 // set up the page size and bounds of scrollview if it is not full screen
--(void)setupScrollViewWithPageWidth:(CGFloat)pageWidth size:(CGSize)size;
+-(void)setupScrollViewWithPageWidth:(CGFloat)pageWidth size:(CGSize)size border:(CGFloat)border;
 
 // start loading pages
 -(void)setupPages;

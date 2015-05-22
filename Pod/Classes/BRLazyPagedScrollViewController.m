@@ -31,19 +31,22 @@
     [super viewDidLayoutSubviews];
     if (!isSetup) {
         content_offset_y = 0; //self.scrollView.contentOffset.y;
-        [self setupScrollViewWithPageWidth:self.view.frame.size.width size:self.view.frame.size];
+        [self setupScrollViewWithPageWidth:self.view.frame.size.width size:self.view.frame.size border:0];
     }
     self.scrollView.contentInset = UIEdgeInsetsZero;
 }
 
--(void)setupScrollViewWithPageWidth:(CGFloat)pageWidth size:(CGSize)size {
+-(void)setupScrollViewWithPageWidth:(CGFloat)pageWidth size:(CGSize)size border:(CGFloat)border {
     // default: programmatically creates scrollview. If subclassing with an interface builder scene, can override this func and connect an IBOutlet (like @IBOutlet weak var myScrollView) to self.scrollView
     self.pageWidth = pageWidth;
     self.scrollViewWidth = size.width;
     self.scrollViewHeight = size.height;
     
-    if (self.pageWidth < self.scrollViewWidth) {
+    if (self.pageWidth < self.scrollViewWidth && border == -1) {
         self.border = 20;
+    }
+    else {
+        self.border = border;
     }
     
     pagingWidth = self.pageWidth + self.border;
