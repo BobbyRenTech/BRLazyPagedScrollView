@@ -120,10 +120,28 @@
     CGFloat offset_x = self.border;
     if (pos == LazyPagePositionLeft)
         offset_x = pagediff;
-    else if (pos == LazyPagePositionCenter)
-        offset_x = pagediff + self.pageWidth + self.border;
-    else if (pos == LazyPagePositionRight)
-        offset_x = pagediff + self.pageWidth * 2 + self.border * 2;
+    else if (pos == LazyPagePositionCenter) {
+        if (!self.canGoLeft && !self.canGoRight) {
+            offset_x = pagediff;
+        }
+        else if (![self canGoLeft]) {
+            offset_x = pagediff;
+        }
+        else if (![self canGoRight]) {
+            offset_x = pagediff + self.pageWidth + self.border;
+        }
+        else {
+            offset_x = pagediff + self.pageWidth + self.border;
+        }
+    }
+    else if (pos == LazyPagePositionRight) {
+        if (!self.canGoLeft) {
+            offset_x = pagediff + self.pageWidth + self.border;
+        }
+        else {
+            offset_x = pagediff + self.pageWidth * 2 + self.border * 2;
+        }
+    }
     
     CGRect rect = CGRectMake(offset_x, content_offset_y, self.pageWidth, self.scrollViewHeight - content_offset_y);
     return rect;

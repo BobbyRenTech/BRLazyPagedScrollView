@@ -12,6 +12,7 @@ class BrowserViewController: BRLazyPagedScrollViewController, UIScrollViewDelega
 
 //    @IBOutlet weak var myScrollView: UIScrollView!
     var currentPageNumber: Int = 0
+    var maxPages: Int = 10
     var allPages: [Int:PageViewController] = [Int:PageViewController]()
     
     override func viewDidLoad() {
@@ -24,8 +25,8 @@ class BrowserViewController: BRLazyPagedScrollViewController, UIScrollViewDelega
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
-        let width_ratio:CGFloat = 0.5
-        self.setupScrollViewWithPageWidth(self.view.frame.size.width * width_ratio, size: CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 100), border:150)
+        let width_ratio:CGFloat = 0.8
+        self.setupScrollViewWithPageWidth(self.view.frame.size.width * width_ratio, size: CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 100), border:30)
         self.setupPages()
     }
 
@@ -43,6 +44,9 @@ class BrowserViewController: BRLazyPagedScrollViewController, UIScrollViewDelega
     }
     
     override func loadLeftPage() {
+        if !self.canGoLeft() {
+            return;
+        }
         var controller: PageViewController? = allPages[self.currentPageNumber-1]
         if controller == nil {
             controller = storyboard!.instantiateViewControllerWithIdentifier("PageViewController") as? PageViewController
@@ -56,6 +60,9 @@ class BrowserViewController: BRLazyPagedScrollViewController, UIScrollViewDelega
     }
     
     override func loadRightPage() {
+        if !self.canGoRight() {
+            return;
+        }
         var controller: PageViewController? = allPages[self.currentPageNumber+1]
         if controller == nil {
             controller = storyboard!.instantiateViewControllerWithIdentifier("PageViewController") as? PageViewController
@@ -69,11 +76,11 @@ class BrowserViewController: BRLazyPagedScrollViewController, UIScrollViewDelega
     }
     
     override func canGoLeft() -> Bool {
-        return true
+        return self.currentPageNumber > 0
     }
     
     override func canGoRight() -> Bool {
-        return true
+        return self.currentPageNumber < maxPages - 1
     }
     
     override func pageLeft() {
