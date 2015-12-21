@@ -7,8 +7,8 @@ end
 target 'Tests', :exclusive => true do
   pod "BRLazyPagedScrollView", :path => "../"
 
-  pod 'Specta'
-  pod 'Expecta'
-  pod 'FBSnapshotTestCase'
-  pod 'Expecta+Snapshots'
+#  pod 'Specta'
+#  pod 'Expecta'
+#  pod 'FBSnapshotTestCase'
+#  pod 'Expecta+Snapshots'
 end

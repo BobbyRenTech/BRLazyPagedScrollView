@@ -270,6 +270,21 @@
     return NO;
 }
 
+#pragma mark commands to change page
+-(void)goToLeftPage:(BOOL)animated {
+    if ([self canGoLeft]) {
+        goingLeft = YES;
+        [self.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:animated];
+    }
+}
+
+-(void)goToRightPage:(BOOL)animated {
+    if ([self canGoRight]) {
+        goingRight = YES;
+        [self.scrollView scrollRectToVisible:CGRectMake([self center_offset_x] + self.view.frame.size.width, content_offset_y, self.pageWidth, 1) animated:true];
+    }
+}
+
 /*
  #pragma mark - Navigation
  

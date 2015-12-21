@@ -53,5 +53,8 @@ typedef enum LazyPagePositionType {
 
 -(void)pageLeft;
 -(void)pageRight;
+
+-(void)goToLeftPage:(BOOL)animated;
+-(void)goToRightPage:(BOOL)animated;
 @end
 
