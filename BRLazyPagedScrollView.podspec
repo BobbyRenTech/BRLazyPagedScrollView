@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "BRLazyPagedScrollView"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "Lazily loads view controllers into a scroll view"
   s.description      = <<-DESC
   		       only loads two or three UIViewControllers at a time
